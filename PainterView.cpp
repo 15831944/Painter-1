@@ -13,6 +13,7 @@
 #include "Ellipse.h"
 #include "Circle.h"
 #include "Triangle.h"
+#include "SegmentLines.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -194,6 +195,10 @@ void CPainterView::OnLButtonDown(UINT nFlags, CPoint point)
 	case TRIANGLE:
 	//TRACE("1");
 		newShape = new  CTriangle(m_borderColor, m_fillColor, point, point);
+		break;
+	case SEGMENTLINES:
+		//TRACE("1");
+		newShape = new  CSegmentLines(m_borderColor, m_fillColor, point, point);
 		break;
 	}
 

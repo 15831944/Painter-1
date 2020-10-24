@@ -170,7 +170,7 @@ void CPainterDoc::OnFileOpen()
 	COLORREF fillColor;//填充颜色
 	CPoint startPoint;//绘制起点
 	CPoint endPoint;//绘制终点
-	enum shapeType{UNSURE,LINE,RECTANGLE,ELLIPSE,CIRCLE,TRIANGLE};//形状类型
+	enum shapeType{UNSURE,LINE,RECTANGLE,ELLIPSE,CIRCLE,TRIANGLE, POLYGON, SEGMENTLINES};//形状类型
 	int type;//形状
 
 	CShape *newShape=NULL;

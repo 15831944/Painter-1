@@ -150,6 +150,8 @@ BEGIN
         MENUITEM "椭圆",                          ID_SHAPE_ELLIPSE
         MENUITEM "圆形",                          ID_SHAPE_CIRCLE
         MENUITEM "三角形",                         ID_SHAPE_TRIANGLE
+        MENUITEM "多段折线",                        ID_SHAPE_SEGMENTLINES
+        MENUITEM "n边形",                         ID_SHAPE_POLYGON
     END
     POPUP "边框颜色"
     BEGIN
@@ -405,6 +407,8 @@ BEGIN
     ID_CLEAR                "清除"
     ID_SHAPE_CIRCLE         "圆形"
     ID_SHAPE_TRIANGLE       "三角形"
+    ID_SHAPE_SEGMENTLINES   "多段折线"
+    ID_SHAPE_POLYGON        "n边形"
 END
 
 #endif    // 中文(简体，中国) resources

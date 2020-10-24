@@ -16,7 +16,7 @@ protected://画板相关
 	//菜单选项
 	COLORREF m_borderColor;//边框颜色
 	COLORREF m_fillColor;//填充颜色
-	enum shapeType{UNSURE,LINE,RECTANGLE,ELLIPSE,CIRCLE,TRIANGLE};//形状类型
+	enum shapeType{UNSURE,LINE,RECTANGLE,ELLIPSE,CIRCLE,TRIANGLE, POLYGON, SEGMENTLINES};//形状类型
 	shapeType m_shapeType;
 	//状态
 	int m_drawState;//1为正在画，0为没在画
@@ -93,6 +93,10 @@ public:
 	afx_msg void OnUpdateShapeCircle(CCmdUI* pCmdUI);
 	afx_msg void OnShapeTriangle();
 	afx_msg void OnUpdateShapeTriangle(CCmdUI* pCmdUI);
+	afx_msg void OnShapeSegmentlines();
+	afx_msg void OnUpdateShapeSegmentlines(CCmdUI* pCmdUI);
+	afx_msg void OnShapePolygon();
+	afx_msg void OnUpdateShapePolygon(CCmdUI* pCmdUI);
 };
 
 #ifndef _DEBUG  // debug version in PainterView.cpp

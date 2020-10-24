@@ -65,6 +65,10 @@ BEGIN_MESSAGE_MAP(CPainterView, CView)
 	ON_UPDATE_COMMAND_UI(ID_SHAPE_CIRCLE, &CPainterView::OnUpdateShapeCircle)
 	ON_COMMAND(ID_SHAPE_TRIANGLE, &CPainterView::OnShapeTriangle)
 	ON_UPDATE_COMMAND_UI(ID_SHAPE_TRIANGLE, &CPainterView::OnUpdateShapeTriangle)
+	ON_COMMAND(ID_SHAPE_SEGMENTLINES, &CPainterView::OnShapeSegmentlines)
+	ON_UPDATE_COMMAND_UI(ID_SHAPE_SEGMENTLINES, &CPainterView::OnUpdateShapeSegmentlines)
+	ON_COMMAND(ID_SHAPE_POLYGON, &CPainterView::OnShapePolygon)
+	ON_UPDATE_COMMAND_UI(ID_SHAPE_POLYGON, &CPainterView::OnUpdateShapePolygon)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -532,6 +536,48 @@ void CPainterView::OnShapeTriangle()
 void CPainterView::OnUpdateShapeTriangle(CCmdUI* pCmdUI)
 {
 	if (m_shapeType == TRIANGLE)
+	{
+		pCmdUI->SetCheck(true);
+	}
+	else
+	{
+		pCmdUI->SetCheck(false);
+	}
+	// TODO: 在此添加命令更新用户界面处理程序代码
+}
+
+
+void CPainterView::OnShapeSegmentlines()
+{
+	m_shapeType = SEGMENTLINES;
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void CPainterView::OnUpdateShapeSegmentlines(CCmdUI* pCmdUI)
+{
+	if (m_shapeType == SEGMENTLINES)
+	{
+		pCmdUI->SetCheck(true);
+	}
+	else
+	{
+		pCmdUI->SetCheck(false);
+	}
+	// TODO: 在此添加命令更新用户界面处理程序代码
+}
+
+
+void CPainterView::OnShapePolygon()
+{
+	m_shapeType = POLYGON;
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void CPainterView::OnUpdateShapePolygon(CCmdUI* pCmdUI)
+{
+	if (m_shapeType == POLYGON)
 	{
 		pCmdUI->SetCheck(true);
 	}

@@ -12,6 +12,7 @@
 
 class CPainterView : public CView
 {
+
 protected://画板相关
 	//菜单选项
 	COLORREF m_borderColor;//边框颜色

@@ -167,39 +167,47 @@ void CPainterView::OnShapeLine()
 void CPainterView::OnLButtonDown(UINT nFlags, CPoint point) 
 {
 	// TODO: Add your message handler code here and/or call default
-	
 	CView::OnLButtonDown(nFlags, point);
-	
-	m_drawState=1;//开始绘图
-	
-	CShape* newShape=NULL;//新形状
-	switch(m_shapeType)
-	{
-	case LINE://直线
-		newShape=new CLine(m_borderColor,m_fillColor,point,point);
-		//终点未定
-	
-		break;
-	case RECTANGLE://矩形
-		newShape= new CRectangle(m_borderColor,m_fillColor,point,point);
-	
-		break;
-	case ELLIPSE:
-		//TRACE("1");
-		newShape= new CEllipse(m_borderColor,m_fillColor,point,point);
-		break;
-	case CIRCLE:
-		//TRACE("1");
-		newShape = new  CCircle(m_borderColor, m_fillColor, point, point);
-		break;
-	case TRIANGLE:
-	//TRACE("1");
-		newShape = new  CTriangle(m_borderColor, m_fillColor, point, point);
-		break;
-	case SEGMENTLINES:
-		//TRACE("1");
+
+	m_drawState = 1;//开始绘图
+
+	CShape* newShape = NULL;//新形状
+	if (m_shapeType == SEGMENTLINES) {
+			//TRACE("1");
 		newShape = new  CSegmentLines(m_borderColor, m_fillColor, point, point);
-		break;
+
+	}
+	else if(m_shapeType == POLYGON) {
+
+	}
+	else
+	{
+
+		switch (m_shapeType)
+		{
+		case LINE://直线
+			newShape = new CLine(m_borderColor, m_fillColor, point, point);
+			//终点未定
+
+			break;
+		case RECTANGLE://矩形
+			newShape = new CRectangle(m_borderColor, m_fillColor, point, point);
+
+			break;
+		case ELLIPSE:
+			//TRACE("1");
+			newShape = new CEllipse(m_borderColor, m_fillColor, point, point);
+			break;
+		case CIRCLE:
+			//TRACE("1");
+			newShape = new  CCircle(m_borderColor, m_fillColor, point, point);
+			break;
+		case TRIANGLE:
+			//TRACE("1");
+			newShape = new  CTriangle(m_borderColor, m_fillColor, point, point);
+			break;
+
+		}
 	}
 
 	//获取文档指针以存入数据

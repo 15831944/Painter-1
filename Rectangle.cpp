@@ -50,7 +50,7 @@ void CRectangle:: draw(CDC* pDC)
 		//…æ≥˝¡Ÿ ±π§æﬂ
 		pen.DeleteObject();
 		brush.DeleteObject(); 
-		TRACE("%d %d", Length(), Square());
+		//TRACE("%d %d", Length(), Square());
 
 }
 

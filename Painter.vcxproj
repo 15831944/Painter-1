@@ -138,6 +138,7 @@
     <ClCompile Include="Painter.cpp" />
     <ClCompile Include="PainterDoc.cpp" />
     <ClCompile Include="PainterView.cpp" />
+    <ClCompile Include="Polygon.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="SegmentLines.cpp" />
     <ClCompile Include="Shape.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="Painter.h" />
     <ClInclude Include="PainterDoc.h" />
     <ClInclude Include="PainterView.h" />
+    <ClInclude Include="Polygon.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SegmentLines.h" />

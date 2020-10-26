@@ -14,6 +14,7 @@
 #include "Circle.h"
 #include "Triangle.h"
 #include "SegmentLines.h"
+#include "Polygon.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -70,6 +71,8 @@ BEGIN_MESSAGE_MAP(CPainterView, CView)
 	ON_UPDATE_COMMAND_UI(ID_SHAPE_SEGMENTLINES, &CPainterView::OnUpdateShapeSegmentlines)
 	ON_COMMAND(ID_SHAPE_POLYGON, &CPainterView::OnShapePolygon)
 	ON_UPDATE_COMMAND_UI(ID_SHAPE_POLYGON, &CPainterView::OnUpdateShapePolygon)
+	ON_COMMAND(ID_TEST, &CPainterView::OnTest)
+	ON_WM_RBUTTONDOWN()
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -172,42 +175,38 @@ void CPainterView::OnLButtonDown(UINT nFlags, CPoint point)
 	m_drawState = 1;//开始绘图
 
 	CShape* newShape = NULL;//新形状
-	if (m_shapeType == SEGMENTLINES) {
-			//TRACE("1");
-		newShape = new  CSegmentLines(m_borderColor, m_fillColor, point, point);
 
-	}
-	else if(m_shapeType == POLYGON) {
 
-	}
-	else
+	switch (m_shapeType)
 	{
+	case POLYGON:
+		newShape= new CPolygon(m_borderColor, m_fillColor, point, point);
+		break;
+	case SEGMENTLINES:
+		newShape = new CSegmentLines(m_borderColor, m_fillColor, point, point);
+		break;
+	case LINE://直线
+		newShape = new CLine(m_borderColor, m_fillColor, point, point);
+		//终点未定
 
-		switch (m_shapeType)
-		{
-		case LINE://直线
-			newShape = new CLine(m_borderColor, m_fillColor, point, point);
-			//终点未定
+		break;
+	case RECTANGLE://矩形
+		newShape = new CRectangle(m_borderColor, m_fillColor, point, point);
 
-			break;
-		case RECTANGLE://矩形
-			newShape = new CRectangle(m_borderColor, m_fillColor, point, point);
+		break;
+	case ELLIPSE:
+		//TRACE("1");
+		newShape = new CEllipse(m_borderColor, m_fillColor, point, point);
+		break;
+	case CIRCLE:
+		//TRACE("1");
+		newShape = new  CCircle(m_borderColor, m_fillColor, point, point);
+		break;
+	case TRIANGLE:
+		//TRACE("1");
+		newShape = new  CTriangle(m_borderColor, m_fillColor, point, point);
+		break;
 
-			break;
-		case ELLIPSE:
-			//TRACE("1");
-			newShape = new CEllipse(m_borderColor, m_fillColor, point, point);
-			break;
-		case CIRCLE:
-			//TRACE("1");
-			newShape = new  CCircle(m_borderColor, m_fillColor, point, point);
-			break;
-		case TRIANGLE:
-			//TRACE("1");
-			newShape = new  CTriangle(m_borderColor, m_fillColor, point, point);
-			break;
-
-		}
 	}
 
 	//获取文档指针以存入数据
@@ -231,6 +230,7 @@ void CPainterView::OnLButtonUp(UINT nFlags, CPoint point)
 	ASSERT_VALID(pDoc);
 	
 	pDoc->setEndPoint(point);
+	TRACE("%d %d", pDoc->Square(), pDoc->Length());
 	Invalidate();//将客户区无效化，导致刷新
 }
 
@@ -599,4 +599,26 @@ void CPainterView::OnUpdateShapePolygon(CCmdUI* pCmdUI)
 		pCmdUI->SetCheck(false);
 	}
 	// TODO: 在此添加命令更新用户界面处理程序代码
+}
+
+
+void CPainterView::OnTest()
+{
+	//CShape* newShape = new CEllipse(m_borderColor, m_fillColor, (10,10), (10000,10000))
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void CPainterView::OnRButtonDown(UINT nFlags, CPoint point)
+{
+	//TRACE("%d %d DDD",m_drawState,m_shapeType);
+	 //TODO: 在此添加消息处理程序代码和/或调用默认值
+	if (m_drawState == 1 && (m_shapeType == SEGMENTLINES|| m_shapeType==POLYGON)) {
+		CPainterDoc* pDoc = GetDocument();
+		ASSERT_VALID(pDoc);
+		pDoc->setLinePoint(point);
+		//TRACE("%d %d",pDoc->Square(),pDoc->Line());
+	}
+	
+	CView::OnRButtonDown(nFlags, point);
 }

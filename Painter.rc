@@ -142,6 +142,7 @@ BEGIN
     POPUP "帮助(&H)"
     BEGIN
         MENUITEM "关于 Painter(&A)...",           ID_APP_ABOUT
+        MENUITEM "测试",                          ID_TEST
     END
     POPUP "形状"
     BEGIN
@@ -233,7 +234,6 @@ BEGIN
             VALUE "FileDescription", "Painter Microsoft 基础类应用程序"
             VALUE "FileVersion", "1, 0, 0, 1"
             VALUE "InternalName", "Painter"
-            VALUE "LegalCopyright", "版权所有 (C) 2018"
             VALUE "OriginalFilename", "Painter.EXE"
             VALUE "ProductName", "Painter 应用程序"
             VALUE "ProductVersion", "1, 0, 0, 1"
@@ -317,7 +317,7 @@ END
 
 STRINGTABLE
 BEGIN
-    ID_APP_ABOUT            "显示程序信息，版本号和版权\n关于"
+    ID_APP_ABOUT            "测试"
     ID_APP_EXIT             "退出应用程序；提示保存文档\n退出"
 END
 
@@ -409,6 +409,7 @@ BEGIN
     ID_SHAPE_TRIANGLE       "三角形"
     ID_SHAPE_SEGMENTLINES   "多段折线"
     ID_SHAPE_POLYGON        "n边形"
+    ID_TEST                 "测试"
 END
 
 #endif    // 中文(简体，中国) resources

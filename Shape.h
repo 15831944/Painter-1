@@ -1,3 +1,4 @@
+#include <vector>
 // Shape.h: interface for the CShape class.
 //
 //////////////////////////////////////////////////////////////////////
@@ -12,6 +13,7 @@
 class CShape  
 {
 protected:
+	std::vector<CPoint> LineNode;
 	COLORREF borderColor;//边框颜色
 	COLORREF fillColor;//填充颜色
 	CPoint startPoint;//绘制起点
@@ -27,6 +29,7 @@ public:
 	COLORREF setFillColor(COLORREF color){return fillColor=color;}//设置填充颜色
 	CPoint setStartPoint(CPoint point){return startPoint=point;}//设置起点
 	CPoint setEndPoint(CPoint point){return endPoint=point;}//设置终点	
+	CPoint setLinePoint(CPoint point) { LineNode.push_back(point); return point; }//设置终点
 	shapeType setShapeType(shapeType p_type){return type=p_type;}
 	//get
 	COLORREF getBorderColor(){return borderColor;}
@@ -34,7 +37,9 @@ public:
 	CPoint getStartPoint(){return startPoint;}
 	CPoint getEndPoint(){return endPoint;}
 	shapeType getShapeType(){return type;}
-
+	void AddNode(CPoint TempNode) {};
+	virtual int Square() { return 0; };
+	virtual int Length() { return 0; };
 	virtual ~CShape();
 
 };

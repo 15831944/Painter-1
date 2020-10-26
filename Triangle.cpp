@@ -46,7 +46,7 @@ void CTriangle::draw(CDC* pDC)
 	pen.DeleteObject();
 	brush.DeleteObject();
 	//TRACE("%d %d %d %d", startPoint.x,startPoint.y, endPoint.x, endPoint.y);
-	TRACE("%d %d", Length(), Square());
+	//TRACE("%d %d", Length(), Square());
 
 }
 

@@ -36,13 +36,29 @@ void CSegmentLines::draw(CDC* pDC)
 	brush.CreateSolidBrush(fillColor);
 	pDC->SelectObject(&brush);
 	//绘制
-	pDC->MoveTo(startPoint);
-	pDC->LineTo(endPoint);
+	if (LineNode.empty()) {
+		pDC->MoveTo(startPoint);
+		pDC->LineTo(endPoint);
+	}
+	else {
+		int i = 0;
+		pDC->MoveTo(startPoint);
+		pDC->LineTo(LineNode[0]);
+		for (i=0; i < LineNode.size()-1; i++) {
+			pDC->MoveTo(LineNode[i]);
+			pDC->LineTo(LineNode[i+1]);
+		}
+		pDC->MoveTo(LineNode[i]);
+		pDC->LineTo(endPoint);
+	}
 	//删除临时工具
 	pen.DeleteObject();
-	brush.DeleteObject();
+	brush.DeleteObject(); 
 
 }
+
+
+
 CSegmentLines::~CSegmentLines()
 {
 

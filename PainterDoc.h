@@ -22,11 +22,14 @@ protected:
 public:
 	//设置末尾形状的终点。起点在加入形状时已经设置
 	void setEndPoint(CPoint point){shapes.back()->setEndPoint(point);}
+	void setLinePoint(CPoint point) { shapes.back()->setLinePoint(point); }
 	//新增指向形状的指针
 	void push_back(CShape* p_shape){shapes.push_back(p_shape);}
 	bool empty(){return shapes.empty();}
 	size_t size(){return shapes.size(); }
 	void pop_back(){shapes.pop_back(); }
+	int Square() { return shapes.back()->Square(); }
+	int Length() { return shapes.back()->Length(); }
 	//将存储的形状全画出来
 	void draw(CDC* pDC);
 	//清除整个画板

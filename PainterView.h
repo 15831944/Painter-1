@@ -98,6 +98,8 @@ public:
 	afx_msg void OnUpdateShapeSegmentlines(CCmdUI* pCmdUI);
 	afx_msg void OnShapePolygon();
 	afx_msg void OnUpdateShapePolygon(CCmdUI* pCmdUI);
+	afx_msg void OnTest();
+	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
 };
 
 #ifndef _DEBUG  // debug version in PainterView.cpp

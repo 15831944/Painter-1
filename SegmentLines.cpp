@@ -16,6 +16,11 @@ CSegmentLines::CSegmentLines(COLORREF p_borderColor,
 	ShapeAmount++;
 	setShapeType(SEGMENTLINES);
 }
+void CSegmentLines::AddNode(CPoint TempNode) {
+	LineNode.push_back(TempNode);
+
+};
+
 
 //@funcName <draw>
 //@statement <根据数据绘制图形>

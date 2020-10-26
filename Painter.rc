@@ -144,6 +144,12 @@ BEGIN
         MENUITEM "关于 Painter(&A)...",           ID_APP_ABOUT
         MENUITEM "测试",                          ID_TEST
     END
+    POPUP "状态"
+    BEGIN
+        MENUITEM "画图",                          ID_SHAPE_DRAW
+        MENUITEM "移动",                          ID_SHAPE_MOVE
+        MENUITEM "旋转",                          ID_SHAPE_REVOLVE
+    END
     POPUP "形状"
     BEGIN
         MENUITEM "直线",                          ID_SHAPE_LINE
@@ -399,7 +405,7 @@ STRINGTABLE
 BEGIN
     ID_SHAPE_RECTANGLE      "矩形"
     ID_SHAPE_ELLIPSE        "椭圆"
-    ID_SHAPE_LINE           "直线"
+    ID_SHAPE_LINE           "画图"
 END
 
 STRINGTABLE
@@ -410,6 +416,9 @@ BEGIN
     ID_SHAPE_SEGMENTLINES   "多段折线"
     ID_SHAPE_POLYGON        "n边形"
     ID_TEST                 "测试"
+    ID_SHAPE_DRAW           "画图"
+    ID_SHAPE_MOVE           "移动"
+    ID_SHAPE_REVOLVE        "旋转"
 END
 
 #endif    // 中文(简体，中国) resources

@@ -121,6 +121,8 @@ protected:
 		// No message handlers
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnUpdateShapeDraw(CCmdUI* pCmdUI);
 };
 
 CAboutDlg::CAboutDlg() : CDialog(CAboutDlg::IDD)
@@ -140,6 +142,7 @@ BEGIN_MESSAGE_MAP(CAboutDlg, CDialog)
 	//{{AFX_MSG_MAP(CAboutDlg)
 		// No message handlers
 	//}}AFX_MSG_MAP
+	ON_UPDATE_COMMAND_UI(ID_SHAPE_DRAW, &CAboutDlg::OnUpdateShapeDraw)
 END_MESSAGE_MAP()
 
 // App command to run the dialog
@@ -154,3 +157,9 @@ void CPainterApp::OnAppAbout()
 
 
 
+
+
+void CAboutDlg::OnUpdateShapeDraw(CCmdUI* pCmdUI)
+{
+	// TODO: 在此添加命令更新用户界面处理程序代码
+}

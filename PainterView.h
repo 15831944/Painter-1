@@ -20,8 +20,9 @@ protected://画板相关
 	enum shapeType{UNSURE,LINE,RECTANGLE,ELLIPSE,CIRCLE,TRIANGLE, POLYGON, SEGMENTLINES};//形状类型
 	shapeType m_shapeType;
 	//状态
+	int m_shapeState;//1为画图，2为移动，3为旋转
 	int m_drawState;//1为正在画，0为没在画
-
+	CPoint LastMousePoint;//改变了用以移动中记录上次鼠标位子
 protected: // create from serialization only
 	CPainterView();
 	DECLARE_DYNCREATE(CPainterView)
@@ -100,6 +101,12 @@ public:
 	afx_msg void OnUpdateShapePolygon(CCmdUI* pCmdUI);
 	afx_msg void OnTest();
 	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnShapeDraw();
+	afx_msg void OnShapeMove();
+	afx_msg void OnShapeRevolve();
+	afx_msg void OnUpdateShapeMove(CCmdUI* pCmdUI);
+	afx_msg void OnUpdateShapeRevolve(CCmdUI* pCmdUI);
+	afx_msg void OnUpdateShapeDraw(CCmdUI* pCmdUI);
 };
 
 #ifndef _DEBUG  // debug version in PainterView.cpp

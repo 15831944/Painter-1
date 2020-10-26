@@ -73,6 +73,12 @@ BEGIN_MESSAGE_MAP(CPainterView, CView)
 	ON_UPDATE_COMMAND_UI(ID_SHAPE_POLYGON, &CPainterView::OnUpdateShapePolygon)
 	ON_COMMAND(ID_TEST, &CPainterView::OnTest)
 	ON_WM_RBUTTONDOWN()
+	ON_COMMAND(ID_SHAPE_DRAW, &CPainterView::OnShapeDraw)
+	ON_COMMAND(ID_SHAPE_MOVE, &CPainterView::OnShapeMove)
+	ON_COMMAND(ID_SHAPE_REVOLVE, &CPainterView::OnShapeRevolve)
+	ON_UPDATE_COMMAND_UI(ID_SHAPE_MOVE, &CPainterView::OnUpdateShapeMove)
+	ON_UPDATE_COMMAND_UI(ID_SHAPE_REVOLVE, &CPainterView::OnUpdateShapeRevolve)
+	ON_UPDATE_COMMAND_UI(ID_SHAPE_DRAW, &CPainterView::OnUpdateShapeDraw)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -82,7 +88,8 @@ CPainterView::CPainterView():
 	m_borderColor(RGB(0,0,0)),//黑色
 	m_fillColor(RGB(255,255,255)),//白色
 	m_shapeType(LINE),//直线
-	m_drawState(0)
+	m_drawState(0),
+	m_shapeState(1)
 {
 	// TODO: add construction code here
 
@@ -171,50 +178,55 @@ void CPainterView::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	// TODO: Add your message handler code here and/or call default
 	CView::OnLButtonDown(nFlags, point);
+	if (m_shapeState == 1) {
+		m_drawState = 1;//开始绘图
 
-	m_drawState = 1;//开始绘图
-
-	CShape* newShape = NULL;//新形状
+		CShape* newShape = NULL;//新形状
 
 
-	switch (m_shapeType)
-	{
-	case POLYGON:
-		newShape= new CPolygon(m_borderColor, m_fillColor, point, point);
-		break;
-	case SEGMENTLINES:
-		newShape = new CSegmentLines(m_borderColor, m_fillColor, point, point);
-		break;
-	case LINE://直线
-		newShape = new CLine(m_borderColor, m_fillColor, point, point);
-		//终点未定
+		switch (m_shapeType)
+		{
+		case POLYGON:
+			newShape = new CPolygon(m_borderColor, m_fillColor, point, point);
+			break;
+		case SEGMENTLINES:
+			newShape = new CSegmentLines(m_borderColor, m_fillColor, point, point);
+			break;
+		case LINE://直线
+			newShape = new CLine(m_borderColor, m_fillColor, point, point);
+			//终点未定
 
-		break;
-	case RECTANGLE://矩形
-		newShape = new CRectangle(m_borderColor, m_fillColor, point, point);
+			break;
+		case RECTANGLE://矩形
+			newShape = new CRectangle(m_borderColor, m_fillColor, point, point);
 
-		break;
-	case ELLIPSE:
-		//TRACE("1");
-		newShape = new CEllipse(m_borderColor, m_fillColor, point, point);
-		break;
-	case CIRCLE:
-		//TRACE("1");
-		newShape = new  CCircle(m_borderColor, m_fillColor, point, point);
-		break;
-	case TRIANGLE:
-		//TRACE("1");
-		newShape = new  CTriangle(m_borderColor, m_fillColor, point, point);
-		break;
+			break;
+		case ELLIPSE:
+			//TRACE("1");
+			newShape = new CEllipse(m_borderColor, m_fillColor, point, point);
+			break;
+		case CIRCLE:
+			//TRACE("1");
+			newShape = new  CCircle(m_borderColor, m_fillColor, point, point);
+			break;
+		case TRIANGLE:
+			//TRACE("1");
+			newShape = new  CTriangle(m_borderColor, m_fillColor, point, point);
+			break;
 
+		}
+
+
+		//获取文档指针以存入数据
+		CPainterDoc* pDoc = GetDocument();
+		ASSERT_VALID(pDoc);
+
+		pDoc->push_back(newShape);
 	}
-
-	//获取文档指针以存入数据
-	CPainterDoc* pDoc = GetDocument();
-	ASSERT_VALID(pDoc);
-	
-	pDoc->push_back(newShape);
-
+	if (m_shapeState == 2) {
+		m_drawState = 1;
+		LastMousePoint = point;
+	}
 }
 
 void CPainterView::OnLButtonUp(UINT nFlags, CPoint point) 
@@ -222,16 +234,68 @@ void CPainterView::OnLButtonUp(UINT nFlags, CPoint point)
 	// TODO: Add your message handler code here and/or call default
 	
 	CView::OnLButtonUp(nFlags, point);
+	if (m_shapeState == 1) {
 
+		m_drawState = 0;//结束绘图
+		//获取文档指针以存入数据
+		CPainterDoc* pDoc = GetDocument();
+		ASSERT_VALID(pDoc);
 
-	m_drawState=0;//结束绘图
-	//获取文档指针以存入数据
-	CPainterDoc* pDoc = GetDocument();
-	ASSERT_VALID(pDoc);
+		pDoc->setEndPoint(point);
+		//TRACE("%d %d", pDoc->Square(), pDoc->Length());
+		//Invalidate();//将客户区无效化，导致刷新
+		CPoint TempPoint;//该变量用于计算图像中心
+		CPoint SumPoint;
+		SumPoint.x = pDoc->shapes.back()->getStartPoint().x + pDoc->shapes.back()->getEndPoint().x;				//***********************************************/
+		SumPoint.y = pDoc->shapes.back()->getStartPoint().y + pDoc->shapes.back()->getEndPoint().y;				//
+		for (int i = 0; i <( pDoc->shapes.back()->LineNode.size()); i++) {										//			此段为计算图像中心点
+			SumPoint.x = SumPoint.x + pDoc->shapes.back()->LineNode[i].x;										//			并在中间标出图像信息
+			SumPoint.y = SumPoint.y + pDoc->shapes.back()->LineNode[i].y;										//
+																												//***********************************************/
+		}
+		TempPoint.x = SumPoint.x / (2+ pDoc->shapes.back()->LineNode.size());
+		TempPoint.y = SumPoint.y / (2 + pDoc->shapes.back()->LineNode.size());
+		CClientDC dc(this);
+		char str[15]; char strl[15];
+		//itoa(pDoc->shapes.back()->Square(), str, 10);
+		//sprintf(str, "面积为%d", pDoc->shapes.back()->LineNode.size());
+		sprintf(str, "面积为%d",abs(pDoc->shapes.back()->Square()));
+		(&dc)->TextOut(TempPoint.x-20, TempPoint.y-20, str,strlen(str));
+		sprintf(strl, "周长为%d",abs( pDoc->shapes.back()->Length()));
+		(&dc)->TextOut(TempPoint.x-20, TempPoint.y, strl, strlen(strl));
+		//Invalidate();
+	}
 	
-	pDoc->setEndPoint(point);
-	TRACE("%d %d", pDoc->Square(), pDoc->Length());
-	Invalidate();//将客户区无效化，导致刷新
+	if (m_shapeState == 2) {
+
+		m_drawState = 0;//结束绘图
+		//获取文档指针以存入数据
+		CPainterDoc* pDoc = GetDocument();
+		ASSERT_VALID(pDoc);
+
+		//pDoc->Move((point.x - LastMousePoint.x, point.y - LastMousePoint.y));
+		//TRACE("%d %d", pDoc->Square(), pDoc->Length());
+		
+		CPoint TempPoint;//该变量用于计算图像中心
+		CPoint SumPoint;
+		SumPoint.x = pDoc->shapes.back()->getStartPoint().x + pDoc->shapes.back()->getEndPoint().x;				//***********************************************/
+		SumPoint.y = pDoc->shapes.back()->getStartPoint().y + pDoc->shapes.back()->getEndPoint().y;				//
+		for (int i = 0; i < (pDoc->shapes.back()->LineNode.size()); i++) {										//			此段为计算图像中心点
+			SumPoint.x = SumPoint.x + pDoc->shapes.back()->LineNode[i].x;										//			并在中间标出图像信息
+			SumPoint.y = SumPoint.y + pDoc->shapes.back()->LineNode[i].y;										//
+																												//***********************************************/
+		}
+		TempPoint.x = SumPoint.x / (2 + pDoc->shapes.back()->LineNode.size());
+		TempPoint.y = SumPoint.y / (2 + pDoc->shapes.back()->LineNode.size());
+		CClientDC dc(this);
+		char str[15]; char strl[15];
+		//itoa(pDoc->shapes.back()->Square(), str, 10);
+		//sprintf(str, "面积为%d", pDoc->shapes.back()->LineNode.size());
+		sprintf(str, "面积为%d", abs(pDoc->shapes.back()->Square()));
+		(&dc)->TextOut(TempPoint.x - 20, TempPoint.y - 20, str, strlen(str));
+		sprintf(strl, "周长为%d", abs(pDoc->shapes.back()->Length()));
+		(&dc)->TextOut(TempPoint.x - 20, TempPoint.y, strl, strlen(strl));
+	}
 }
 
 void CPainterView::OnMouseMove(UINT nFlags, CPoint point) 
@@ -239,25 +303,51 @@ void CPainterView::OnMouseMove(UINT nFlags, CPoint point)
 	// TODO: Add your message handler code here and/or call default
 	
 	CView::OnMouseMove(nFlags, point);
+	
+		static int refreshFlag = 0;//防止刷新过快造成闪烁
+		int time = 256;//refreshFlag的循环周期，不会影响刷新频率
+		int interval = 5;//每interval次调用此函数就刷新一次
+	if (m_shapeState == 1) {
+		if (m_drawState == 1)//只在绘画过程刷新，以免闪烁
+		{
+			CPainterDoc* pDoc = GetDocument();
+			ASSERT_VALID(pDoc);
+			pDoc->setEndPoint(point);
+			if (refreshFlag >= time)
+			{
+				refreshFlag = 0;//循环
+			}
+			if (refreshFlag % interval == 0)
+			{
+				Invalidate();
+			}
+			refreshFlag++;
 
-	static int refreshFlag=0;//防止刷新过快造成闪烁
-	int time=256;//refreshFlag的循环周期，不会影响刷新频率
-	int interval=5;//每interval次调用此函数就刷新一次
-	if(m_drawState==1)//只在绘画过程刷新，以免闪烁
-	{
-		CPainterDoc* pDoc = GetDocument();
-		ASSERT_VALID(pDoc);
-		pDoc->setEndPoint(point);
-		if(refreshFlag>=time)
-		{
-			refreshFlag=0;//循环
 		}
-		if(refreshFlag%interval==0)
+	}
+	if (m_shapeState == 2) {
+		if (m_drawState == 1)//只在绘画过程刷新，以免闪烁
 		{
-			Invalidate();
+			CPoint TempPoint;
+			CPainterDoc* pDoc = GetDocument();
+			ASSERT_VALID(pDoc);
+			TempPoint.x = point.x- LastMousePoint.x;
+			TempPoint.y = point.y-LastMousePoint.y;
+			pDoc->Move(TempPoint);
+			
+			LastMousePoint.x = point.x;
+			LastMousePoint.y = point.y;
+			if (refreshFlag >= time)
+			{
+				refreshFlag = 0;//循环
+			}
+			if (refreshFlag % interval == 0)
+			{
+				Invalidate();
+			}
+			refreshFlag++;
+
 		}
-		refreshFlag++;
-		
 	}
 }
 
@@ -604,6 +694,12 @@ void CPainterView::OnUpdateShapePolygon(CCmdUI* pCmdUI)
 
 void CPainterView::OnTest()
 {
+	CClientDC dc(this);
+	(&dc) ->TextOut( 50, 50, "111", 3);
+	(&dc)->SetTextColor(RGB(255, 255, 255));
+	(&dc)->TextOut(50, 50, "111", 3);
+	/*CButton* btn = new CButton();
+	btn->Create(_T("动态按钮"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, CRect(10, 10, 150, 150), this, IDC_MYBUTTON);*/
 	//CShape* newShape = new CEllipse(m_borderColor, m_fillColor, (10,10), (10000,10000))
 	// TODO: 在此添加命令处理程序代码
 }
@@ -621,4 +717,67 @@ void CPainterView::OnRButtonDown(UINT nFlags, CPoint point)
 	}
 	
 	CView::OnRButtonDown(nFlags, point);
+}
+
+
+void CPainterView::OnShapeDraw()
+{
+	m_shapeState = 1;
+	// TODO: 在此添加命令处理程序代码;
+}
+
+
+void CPainterView::OnShapeMove()
+{
+	m_shapeState = 2;
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void CPainterView::OnShapeRevolve()
+{
+	m_shapeState = 3;
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void CPainterView::OnUpdateShapeMove(CCmdUI* pCmdUI)
+{
+	if( m_shapeState == 2)
+	{
+		pCmdUI->SetCheck(true);
+	}
+	else
+	{
+		pCmdUI->SetCheck(false);
+	}
+	// TODO: 在此添加命令更新用户界面处理程序代码
+}
+
+
+void CPainterView::OnUpdateShapeRevolve(CCmdUI* pCmdUI)
+{
+	if (m_shapeState == 3)
+	{
+		pCmdUI->SetCheck(true);
+	}
+	else
+	{
+		pCmdUI->SetCheck(false);
+	}
+	// TODO: 在此添加命令更新用户界面处理程序代码
+}
+
+
+void CPainterView::OnUpdateShapeDraw(CCmdUI* pCmdUI)
+{
+	if (m_shapeState == 1)
+	{
+		pCmdUI->SetCheck(true);
+	}
+	else
+	{
+		pCmdUI->SetCheck(false);
+	}
+	// TODO: 在此添加命令更新用户界面处理程序代码
 }

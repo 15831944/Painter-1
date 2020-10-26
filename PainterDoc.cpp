@@ -86,6 +86,11 @@ BOOL CPainterDoc::OnNewDocument()
 /////////////////////////////////////////////////////////////////////////////
 // CPainterDoc serialization
 
+void CPainterDoc::ShapeInfShow() {
+
+
+}
+
 void CPainterDoc::Serialize(CArchive& ar)
 {
 	if (ar.IsStoring())
@@ -205,6 +210,7 @@ void CPainterDoc::OnFileOpen()
 		push_back(newShape);//Ìí¼ÓÐÂÐÎ×´
 	
 	}
+	//draw();
 	fin.close();
 }
 

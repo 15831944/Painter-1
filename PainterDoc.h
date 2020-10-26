@@ -16,14 +16,16 @@ using namespace std;//vector需要
 class CPainterDoc : public CDocument
 {
 //存储
-protected:
+public:
 	vector<CShape*> shapes;//存储已经画好的形状
 	//使用基类指针来实现动态绑定
 public:
 	//设置末尾形状的终点。起点在加入形状时已经设置
+	void ShapeInfShow();//用于显示面积信息
 	void setEndPoint(CPoint point){shapes.back()->setEndPoint(point);}
 	void setLinePoint(CPoint point) { shapes.back()->setLinePoint(point); }
 	//新增指向形状的指针
+	void Move(CPoint DistanceShape) { shapes.back()->Move(DistanceShape); }
 	void push_back(CShape* p_shape){shapes.push_back(p_shape);}
 	bool empty(){return shapes.empty();}
 	size_t size(){return shapes.size(); }

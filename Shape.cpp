@@ -38,7 +38,17 @@ CShape::CShape(COLORREF p_borderColor,
 	
 }
 
+void CShape::Move(CPoint PointDistance) {
+	startPoint.x = startPoint.x + PointDistance.x;
+	startPoint.y = startPoint.y + PointDistance.y;
+	endPoint.x = endPoint.x + PointDistance.x;
+	endPoint.y = endPoint.y + PointDistance.y;
+	for (int i = 0; i < LineNode.size(); i++) {
+		LineNode[i].x = LineNode[i].x + PointDistance.x;
+		LineNode[i].y = LineNode[i].y + PointDistance.y;
 
+	}
+}
 
 CShape::~CShape()
 {

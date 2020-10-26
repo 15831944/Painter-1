@@ -13,7 +13,7 @@
 class CShape  
 {
 protected:
-	std::vector<CPoint> LineNode;
+	
 	COLORREF borderColor;//边框颜色
 	COLORREF fillColor;//填充颜色
 	CPoint startPoint;//绘制起点
@@ -25,6 +25,7 @@ public:
 	CShape(COLORREF p_borderColor,COLORREF p_fillColor,CPoint p_startPoint,CPoint p_endPoint);
 	virtual void draw(CDC* pDC)=0;//绘图函数，在子类中具体实现
 	//set
+	std::vector<CPoint> LineNode;
 	COLORREF setBorderColor(COLORREF color){return borderColor=color;}//设置边框颜色
 	COLORREF setFillColor(COLORREF color){return fillColor=color;}//设置填充颜色
 	CPoint setStartPoint(CPoint point){return startPoint=point;}//设置起点
@@ -38,6 +39,7 @@ public:
 	CPoint getEndPoint(){return endPoint;}
 	shapeType getShapeType(){return type;}
 	void AddNode(CPoint TempNode) {};
+	void Move(CPoint PointDistance);
 	virtual int Square() { return 0; };
 	virtual int Length() { return 0; };
 	virtual ~CShape();

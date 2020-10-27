@@ -34,7 +34,7 @@ void CPolygon::draw(CDC* pDC)
 	brush.CreateSolidBrush(fillColor);
 	pDC->SelectObject(&brush);
 	//绘制
-	if (LineNode.empty()) {
+	/*if (LineNode.empty()) {
 		pDC->MoveTo(startPoint);
 		pDC->LineTo(endPoint);
 	}
@@ -50,7 +50,13 @@ void CPolygon::draw(CDC* pDC)
 		pDC->LineTo(endPoint);
 		pDC->MoveTo(endPoint);
 		pDC->LineTo(startPoint);
-	}
+	}*/
+
+	std::vector<CPoint> AllPoint(LineNode);				//该变量用以储存多边形全部顶点
+	AllPoint.insert(AllPoint.begin(), startPoint);
+	AllPoint.push_back(endPoint);
+	pDC->Polygon(&AllPoint[0], AllPoint.size());
+
 	//删除临时工具
 	pen.DeleteObject();
 	brush.DeleteObject();

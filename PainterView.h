@@ -1,7 +1,7 @@
 // PainterView.h : interface of the CPainterView class
 //
 /////////////////////////////////////////////////////////////////////////////
-
+#include"PainterDoc.h"
 #if !defined(AFX_PAINTERVIEW_H__3101891E_6B64_4F58_B0E2_BAA9BEC5DC72__INCLUDED_)
 #define AFX_PAINTERVIEW_H__3101891E_6B64_4F58_B0E2_BAA9BEC5DC72__INCLUDED_
 
@@ -33,7 +33,7 @@ public:
 
 // Operations
 public:
-
+	
 // Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CPainterView)

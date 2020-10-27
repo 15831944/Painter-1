@@ -248,21 +248,29 @@ void CPainterView::OnLButtonUp(UINT nFlags, CPoint point)
 		CPoint SumPoint;
 		SumPoint.x = pDoc->shapes.back()->getStartPoint().x + pDoc->shapes.back()->getEndPoint().x;				//***********************************************/
 		SumPoint.y = pDoc->shapes.back()->getStartPoint().y + pDoc->shapes.back()->getEndPoint().y;				//
-		for (int i = 0; i <( pDoc->shapes.back()->LineNode.size()); i++) {										//			此段为计算图像中心点
-			SumPoint.x = SumPoint.x + pDoc->shapes.back()->LineNode[i].x;										//			并在中间标出图像信息
+		for (int i = 0; i <( pDoc->shapes.back()->LineNode.size()); i++) {										//			
+			SumPoint.x = SumPoint.x + pDoc->shapes.back()->LineNode[i].x;										//			
 			SumPoint.y = SumPoint.y + pDoc->shapes.back()->LineNode[i].y;										//
-																												//***********************************************/
-		}
-		TempPoint.x = SumPoint.x / (2+ pDoc->shapes.back()->LineNode.size());
-		TempPoint.y = SumPoint.y / (2 + pDoc->shapes.back()->LineNode.size());
+																												//
+		}																										//
+		TempPoint.x = SumPoint.x / (2+ pDoc->shapes.back()->LineNode.size());									//			此段为计算图像中心点
+		TempPoint.y = SumPoint.y / (2 + pDoc->shapes.back()->LineNode.size());									//			并在中间标出图像信息
 		CClientDC dc(this);
-		char str[15]; char strl[15];
-		//itoa(pDoc->shapes.back()->Square(), str, 10);
-		//sprintf(str, "面积为%d", pDoc->shapes.back()->LineNode.size());
-		sprintf(str, "面积为%d",abs(pDoc->shapes.back()->Square()));
-		(&dc)->TextOut(TempPoint.x-20, TempPoint.y-20, str,strlen(str));
-		sprintf(strl, "周长为%d",abs( pDoc->shapes.back()->Length()));
-		(&dc)->TextOut(TempPoint.x-20, TempPoint.y, strl, strlen(strl));
+		
+		if ((m_shapeType == LINE) || (m_shapeType == SEGMENTLINES)) {
+			char str[16]; char strl[16];
+			sprintf(str, "长度为%d", abs(pDoc->shapes.back()->Length()));
+			(&dc)->TextOut(TempPoint.x - 20, TempPoint.y - 20, str, strlen(str));
+			sprintf(strl, "顶点数为%d", abs(pDoc->shapes.back()->Node()));											//
+			(&dc)->TextOut(TempPoint.x - 20, TempPoint.y, strl, strlen(strl));
+		}
+		else{
+			char str[16]; char strl[16];
+			sprintf(str, "面积为%d", abs(pDoc->shapes.back()->Square()));
+			(&dc)->TextOut(TempPoint.x - 20, TempPoint.y - 20, str, strlen(str));
+			sprintf(strl, "周长为%d", abs(pDoc->shapes.back()->Length()));											//
+			(&dc)->TextOut(TempPoint.x - 20, TempPoint.y, strl, strlen(strl));
+		}
 		//Invalidate();
 	}
 	
@@ -288,13 +296,20 @@ void CPainterView::OnLButtonUp(UINT nFlags, CPoint point)
 		TempPoint.x = SumPoint.x / (2 + pDoc->shapes.back()->LineNode.size());
 		TempPoint.y = SumPoint.y / (2 + pDoc->shapes.back()->LineNode.size());
 		CClientDC dc(this);
-		char str[15]; char strl[15];
-		//itoa(pDoc->shapes.back()->Square(), str, 10);
-		//sprintf(str, "面积为%d", pDoc->shapes.back()->LineNode.size());
-		sprintf(str, "面积为%d", abs(pDoc->shapes.back()->Square()));
-		(&dc)->TextOut(TempPoint.x - 20, TempPoint.y - 20, str, strlen(str));
-		sprintf(strl, "周长为%d", abs(pDoc->shapes.back()->Length()));
-		(&dc)->TextOut(TempPoint.x - 20, TempPoint.y, strl, strlen(strl));
+		if ((m_shapeType == LINE) || (m_shapeType == SEGMENTLINES)) {
+			char str[16]; char strl[16];
+			sprintf(str, "长度为%d", abs(pDoc->shapes.back()->Length()));
+			(&dc)->TextOut(TempPoint.x - 20, TempPoint.y - 20, str, strlen(str));
+			sprintf(strl, "顶点数为%d", abs(pDoc->shapes.back()->Node()));											//
+			(&dc)->TextOut(TempPoint.x - 20, TempPoint.y, strl, strlen(strl));
+		}
+		else{
+			char str[16]; char strl[16];
+			sprintf(str, "面积为%d", abs(pDoc->shapes.back()->Square()));
+			(&dc)->TextOut(TempPoint.x - 20, TempPoint.y - 20, str, strlen(str));
+			sprintf(strl, "周长为%d", abs(pDoc->shapes.back()->Length()));											//
+			(&dc)->TextOut(TempPoint.x - 20, TempPoint.y, strl, strlen(strl));
+		}
 	}
 }
 

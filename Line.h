@@ -9,16 +9,19 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "Shape.h"
+//#include "Shape.h"
+#include "LineShape.h"
 
-class CLine :virtual public CShape  
+
+class CLine :virtual public CLineShape
 {
 public:
 	static int ShapeAmount;
 	CLine();
 	CLine(COLORREF p_borderColor,COLORREF p_fillColor,CPoint p_startPoint,CPoint p_endPoint);
 	void draw(CDC* pDC);
-
+	virtual int Length();
+	virtual int Node();
 	virtual ~CLine();
 
 };

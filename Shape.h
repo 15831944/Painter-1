@@ -40,8 +40,10 @@ public:
 	shapeType getShapeType(){return type;}
 	void AddNode(CPoint TempNode) {};
 	void Move(CPoint PointDistance);
+	int getLineNode() { return LineNode.size(); }
 	virtual int Square() { return 0; };
-	virtual int Length() { return 0; };
+	virtual int Length() { return 0; }; 
+	virtual int Node() { return 0; };
 	virtual ~CShape();
 
 };

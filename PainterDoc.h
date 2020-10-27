@@ -33,7 +33,7 @@ public:
 	int Square() { return shapes.back()->Square(); }
 	int Length() { return shapes.back()->Length(); }
 	//将存储的形状全画出来
-	void draw(CDC* pDC);
+	void draw(CDC *pDC);
 	//清除整个画板
 	void clear();
 

@@ -5,6 +5,7 @@
 #include "stdafx.h"
 #include "Painter.h"
 #include "Line.h"
+#include "Shape.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -53,6 +54,18 @@ void CLine :: draw(CDC* pDC)
 		brush.DeleteObject(); 
 
 }
+
+int CLine::Length()
+{
+	return  PythagorenTheorem(startPoint,endPoint);//£»
+}
+
+int CLine::Node()
+{
+	return  getLineNode()+2;//£»
+}
+
+
 CLine::~CLine()
 {
 

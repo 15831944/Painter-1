@@ -57,6 +57,28 @@ void CSegmentLines::draw(CDC* pDC)
 
 }
 
+int CSegmentLines::Length()
+{
+	int length=0;
+	if (LineNode.empty()) {
+		length = PythagorenTheorem(startPoint, endPoint);
+	}
+	else {
+		int i = 0;
+		length = PythagorenTheorem(startPoint, LineNode[0]);
+		for (i = 0; i < LineNode.size() - 1; i++) {
+			length += PythagorenTheorem(LineNode[i], LineNode[i+1]);
+		}
+		length += PythagorenTheorem(LineNode[i], endPoint);
+	}
+	return length;
+}
+
+int CSegmentLines::Node()
+{
+	return  getLineNode()+2;//£»
+}
+
 
 
 CSegmentLines::~CSegmentLines()

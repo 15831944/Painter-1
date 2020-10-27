@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include "Painter.h"
-
+#include "PainterView.h"
 #include "PainterDoc.h"
 
 //形状
@@ -44,8 +44,12 @@ CPainterDoc::CPainterDoc()
 //@funcName <CPainterDoc::draw>
 //@statement <根据shapes内容绘制所有图形>
 //@parameter <被绘制设备上下文:CDC>
-void CPainterDoc::draw(CDC* pDC)
+void CPainterDoc::draw(CDC *pDC)
 {
+	//POSITION pos = GetFirstViewPosition();
+
+	//CView* pView = GetNextView(pos);
+	//CClientDC pDC(pView);
 	for(size_t i=0;i<shapes.size();i++)
 	{
 		shapes[i]->draw(pDC);
@@ -204,13 +208,24 @@ void CPainterDoc::OnFileOpen()
 			break;
 		case ELLIPSE:
 			newShape=new CEllipse(borderColor,fillColor,startPoint,endPoint);
-			
+			break;
+		case TRIANGLE://直线
+			newShape = new CLine(borderColor, fillColor, startPoint, endPoint); 
+			break;
+		case CIRCLE://直线
+			newShape = new CLine(borderColor, fillColor, startPoint, endPoint);
+			break;
+
 			break;
 		}
 		push_back(newShape);//添加新形状
 	
 	}
-	//draw();
+	POSITION pos = GetFirstViewPosition();
+
+	CView* pView = GetNextView(pos); //得到View指针 
+	CClientDC pDC(pView);
+	draw(&pDC);
 	fin.close();
 }
 

@@ -134,6 +134,7 @@
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="Ellipse.cpp" />
     <ClCompile Include="Line.cpp" />
+    <ClCompile Include="LineShape.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="Painter.cpp" />
     <ClCompile Include="PainterDoc.cpp" />
@@ -158,10 +159,10 @@
     <ClInclude Include="Circle.h" />
     <ClInclude Include="Ellipse.h" />
     <ClInclude Include="Line.h" />
+    <ClInclude Include="LineShape.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="Painter.h" />
     <ClInclude Include="PainterDoc.h" />
-    <ClInclude Include="PainterView.h" />
     <ClInclude Include="Polygon.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Resource.h" />

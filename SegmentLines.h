@@ -1,9 +1,11 @@
 #pragma once
-#include "AreaShape.h"
+//#include "SegmentLines.h"
 #include <vector>
+#include "LineShape.h"
+#include "Shape.h"
 
-class CSegmentLines :
-    public CShape
+class CSegmentLines :virtual public CLineShape
+ 
 {
 public:
 	static int ShapeAmount;
@@ -14,7 +16,8 @@ public:
 	CSegmentLines(COLORREF p_borderColor, COLORREF p_fillColor, CPoint p_startPoint, CPoint p_endPoint);
 	void draw(CDC* pDC);
 	void AddNode(CPoint TempNode) ;
-
+	virtual int Length();
+	virtual int Node();
 	virtual ~CSegmentLines();
 };
 

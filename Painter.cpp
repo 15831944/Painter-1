@@ -91,7 +91,7 @@ BOOL CPainterApp::InitInstance()
 	m_pMainWnd->UpdateWindow();
 	
 	//标题
-	m_pMainWnd->SetWindowText(_T("2018年面向对象课设-简易画板"));
+	m_pMainWnd->SetWindowText(_T("几何图形绘制"));
 	return TRUE;
 }
 

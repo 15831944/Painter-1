@@ -96,10 +96,6 @@ BEGIN
     BUTTON      ID_FILE_PRINT
     SEPARATOR
     BUTTON      ID_APP_ABOUT
-    BUTTON      ID_SHAPE_LINE
-    BUTTON      ID_SHAPE_RECTANGLE
-    BUTTON      ID_SHAPE_ELLIPSE
-    BUTTON      ID_CLEAR
 END
 
 
@@ -133,6 +129,7 @@ BEGIN
         MENUITEM "复制(&C)\tCtrl+C",              ID_EDIT_COPY
         MENUITEM "粘贴(&P)\tCtrl+V",              ID_EDIT_PASTE
         MENUITEM "清屏",                          ID_CLEAR
+        MENUITEM "查看数量",                        ID_INQUIRE_NUM
     END
     POPUP "查看(&V)"
     BEGIN
@@ -153,11 +150,11 @@ BEGIN
     POPUP "形状"
     BEGIN
         MENUITEM "直线",                          ID_SHAPE_LINE
+        MENUITEM "多段折线",                        ID_SHAPE_SEGMENTLINES
         MENUITEM "矩形",                          ID_SHAPE_RECTANGLE
         MENUITEM "椭圆",                          ID_SHAPE_ELLIPSE
         MENUITEM "圆形",                          ID_SHAPE_CIRCLE
         MENUITEM "三角形",                         ID_SHAPE_TRIANGLE
-        MENUITEM "多段折线",                        ID_SHAPE_SEGMENTLINES
         MENUITEM "n边形",                         ID_SHAPE_POLYGON
     END
     POPUP "边框颜色"
@@ -419,6 +416,7 @@ BEGIN
     ID_SHAPE_DRAW           "画图"
     ID_SHAPE_MOVE           "移动"
     ID_SHAPE_REVOLVE        "旋转"
+    ID_INQUIRE_NUM          "查看数量"
 END
 
 #endif    // 中文(简体，中国) resources

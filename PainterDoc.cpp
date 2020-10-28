@@ -7,10 +7,15 @@
 #include "PainterDoc.h"
 
 //形状
+
 #include "Line.h"
 #include "Rectangle.h"
 #include "Ellipse.h"
-
+#include "Circle.h"
+#include "Rectangle.h"
+#include"SegmentLines.h"
+#include "Polygon.h"
+#include "Triangle.h"
 
 #include <fstream>
 
@@ -31,6 +36,7 @@ BEGIN_MESSAGE_MAP(CPainterDoc, CDocument)
 	ON_COMMAND(ID_FILE_SAVE, OnFileSave)
 	ON_COMMAND(ID_FILE_OPEN, OnFileOpen)
 	//}}AFX_MSG_MAP
+	ON_COMMAND(ID_INQUIRE_NUM, &CPainterDoc::OnInquireNum)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -153,6 +159,17 @@ void CPainterDoc::OnFileSave()
 				shapes[i]->getEndPoint().x,
 				shapes[i]->getEndPoint().y
 				);
+	/*	if (shapes[i]->LineNode.size()) {
+			for (size_t j = 0; j < size(); j++) {
+				buffer.Format(" %d %d",
+					shapes[i]->LineNode[j].x,
+					shapes[i]->LineNode[j].y
+				);
+			}
+		}
+		else{ 
+			
+		}*/
 		if(i!=size()-1)
 			buffer+="\n";//最后一行不加换行
 		fout.WriteString(buffer);
@@ -230,3 +247,26 @@ void CPainterDoc::OnFileOpen()
 }
 
 
+
+
+void CPainterDoc::OnInquireNum()
+{
+
+	CString StringMessage = _T("");  
+	StringMessage.Format(_T("直线数量为%d\n"
+							"多段折线数量为%d\n"
+							"矩形数量为%d\n"
+							"椭圆数量为%d\n"
+							"圆形数量为%d\n"
+							"三角形数量为%d\n"
+							"n边形数量为%d\n"), 
+								CLine::ShapeAmount,
+								CSegmentLines::ShapeAmount,
+								CRectangle::ShapeAmount,
+								CEllipse::ShapeAmount,
+								CCircle::ShapeAmount,
+								CTriangle::ShapeAmount,
+								CPolygon::ShapeAmount);
+	AfxMessageBox(_T(StringMessage));
+	// TODO: 在此添加命令处理程序代码
+}

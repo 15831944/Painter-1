@@ -17,7 +17,7 @@ class CEllipse :virtual public CAreaShape
 public:
 	static int ShapeAmount;//变量用以统计数量
 	CEllipse();
-	CEllipse(COLORREF p_borderColor,COLORREF p_fillColor,CPoint p_startPoint,CPoint p_endPoint);
+	CEllipse(int p_lineType,COLORREF p_borderColor,COLORREF p_fillColor,CPoint p_startPoint,CPoint p_endPoint);
 	void draw(CDC* pDC);
 	virtual int Length();
 	virtual int Square();

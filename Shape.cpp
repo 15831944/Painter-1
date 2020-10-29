@@ -16,6 +16,7 @@ static char THIS_FILE[]=__FILE__;
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 CShape::CShape():
+	lineType(PS_SOLID),//直线
 	borderColor(RGB(0,0,0)),//默认黑色
 	fillColor(RGB(255,255,255)),//默认白色
 	startPoint(100,100),//无关紧要的默认值
@@ -25,10 +26,12 @@ CShape::CShape():
 	
 }
 
-CShape::CShape(COLORREF p_borderColor,
+CShape::CShape(int p_lineType,
+	           COLORREF p_borderColor,
 			   COLORREF p_fillColor,
 			   CPoint p_startPoint,
 			   CPoint p_endPoint):
+	lineType(p_lineType),
 	borderColor(p_borderColor),
 	fillColor(p_fillColor),
 	startPoint(p_startPoint),

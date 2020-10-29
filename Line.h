@@ -18,7 +18,7 @@ class CLine :virtual public CLineShape
 public:
 	static int ShapeAmount;
 	CLine();
-	CLine(COLORREF p_borderColor,COLORREF p_fillColor,CPoint p_startPoint,CPoint p_endPoint);
+	CLine(int p_lineType,COLORREF p_borderColor,COLORREF p_fillColor,CPoint p_startPoint,CPoint p_endPoint);
 	void draw(CDC* pDC);
 	virtual int Length();
 	virtual int Node();

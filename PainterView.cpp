@@ -79,12 +79,25 @@ BEGIN_MESSAGE_MAP(CPainterView, CView)
 	ON_UPDATE_COMMAND_UI(ID_SHAPE_MOVE, &CPainterView::OnUpdateShapeMove)
 	ON_UPDATE_COMMAND_UI(ID_SHAPE_REVOLVE, &CPainterView::OnUpdateShapeRevolve)
 	ON_UPDATE_COMMAND_UI(ID_SHAPE_DRAW, &CPainterView::OnUpdateShapeDraw)
+	ON_COMMAND(ID_LINETYPE_SOLID, &CPainterView::OnLinetypeSolid)
+	ON_UPDATE_COMMAND_UI(ID_LINETYPE_SOLID, &CPainterView::OnUpdateLinetypeSolid)
+	ON_COMMAND(ID_LINETYPE_DASH, &CPainterView::OnLinetypeDash)
+	ON_UPDATE_COMMAND_UI(ID_LINETYPE_DASH, &CPainterView::OnUpdateLinetypeDash)
+	ON_COMMAND(ID_LINETYPE_DOT, &CPainterView::OnLinetypeDot)
+	ON_UPDATE_COMMAND_UI(ID_LINETYPE_DOT, &CPainterView::OnUpdateLinetypeDot)
+	ON_COMMAND(ID_LINETYPE_DASHDOT, &CPainterView::OnLinetypeDashdot)
+	ON_UPDATE_COMMAND_UI(ID_LINETYPE_DASHDOT, &CPainterView::OnUpdateLinetypeDashdot)
+	ON_COMMAND(ID_LINETYPE_DASHDOTDOT, &CPainterView::OnLinetypeDashdotdot)
+	ON_UPDATE_COMMAND_UI(ID_LINETYPE_DASHDOTDOT, &CPainterView::OnUpdateLinetypeDashdotdot)
+	ON_UPDATE_COMMAND_UI(ID_LINETYPE_INSIDEFRAME, &CPainterView::OnUpdateLinetypeInsideframe)
+	ON_COMMAND(ID_LINETYPE_INSIDEFRAME, &CPainterView::OnLinetypeInsideframe)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
 // CPainterView construction/destruction
 
-CPainterView::CPainterView():
+CPainterView::CPainterView() :
+	m_lineType(PS_SOLID),
 	m_borderColor(RGB(0,0,0)),//黑色
 	m_fillColor(RGB(255,255,255)),//白色
 	m_shapeType(LINE),//直线
@@ -187,31 +200,31 @@ void CPainterView::OnLButtonDown(UINT nFlags, CPoint point)
 		switch (m_shapeType)
 		{
 		case POLYGON:
-			newShape = new CPolygon(m_borderColor, m_fillColor, point, point);
+			newShape = new CPolygon(m_lineType,m_borderColor, m_fillColor, point, point);
 			break;
 		case SEGMENTLINES:
-			newShape = new CSegmentLines(m_borderColor, m_fillColor, point, point);
+			newShape = new CSegmentLines(m_lineType, m_borderColor, m_fillColor, point, point);
 			break;
 		case LINE://直线
-			newShape = new CLine(m_borderColor, m_fillColor, point, point);
+			newShape = new CLine(m_lineType, m_borderColor, m_fillColor, point, point);
 			//终点未定
 
 			break;
 		case RECTANGLE://矩形
-			newShape = new CRectangle(m_borderColor, m_fillColor, point, point);
+			newShape = new CRectangle(m_lineType, m_borderColor, m_fillColor, point, point);
 
 			break;
 		case ELLIPSE:
 			//TRACE("1");
-			newShape = new CEllipse(m_borderColor, m_fillColor, point, point);
+			newShape = new CEllipse(m_lineType, m_borderColor, m_fillColor, point, point);
 			break;
 		case CIRCLE:
 			//TRACE("1");
-			newShape = new  CCircle(m_borderColor, m_fillColor, point, point);
+			newShape = new  CCircle(m_lineType, m_borderColor, m_fillColor, point, point);
 			break;
 		case TRIANGLE:
 			//TRACE("1");
-			newShape = new  CTriangle(m_borderColor, m_fillColor, point, point);
+			newShape = new  CTriangle(m_lineType, m_borderColor, m_fillColor, point, point);
 			break;
 
 		}
@@ -795,4 +808,130 @@ void CPainterView::OnUpdateShapeDraw(CCmdUI* pCmdUI)
 		pCmdUI->SetCheck(false);
 	}
 	// TODO: 在此添加命令更新用户界面处理程序代码
+}
+
+void CPainterView::OnLinetypeSolid()
+{
+	m_lineType = PS_SOLID;
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void CPainterView::OnUpdateLinetypeSolid(CCmdUI* pCmdUI)
+{
+	if (m_lineType == PS_SOLID)
+	{
+		pCmdUI->SetCheck(true);
+	}
+	else
+	{
+		pCmdUI->SetCheck(false);
+	}
+
+	// TODO: 在此添加命令更新用户界面处理程序代码
+}
+
+
+void CPainterView::OnLinetypeDash()
+{
+	m_lineType = PS_DASH;
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void CPainterView::OnUpdateLinetypeDash(CCmdUI* pCmdUI)
+{
+	if (m_lineType == PS_DASH)
+	{
+		pCmdUI->SetCheck(true);
+	}
+	else
+	{
+		pCmdUI->SetCheck(false);
+	}
+	// TODO: 在此添加命令更新用户界面处理程序代码
+}
+
+
+void CPainterView::OnLinetypeDot()
+{
+	m_lineType = PS_DOT;
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void CPainterView::OnUpdateLinetypeDot(CCmdUI* pCmdUI)
+{
+	if (m_lineType == PS_DOT)
+	{
+		pCmdUI->SetCheck(true);
+	}
+	else
+	{
+		pCmdUI->SetCheck(false);
+	}
+	// TODO: 在此添加命令更新用户界面处理程序代码
+}
+
+
+void CPainterView::OnLinetypeDashdot()
+{
+	m_lineType = PS_DASHDOT;
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void CPainterView::OnUpdateLinetypeDashdot(CCmdUI* pCmdUI)
+{
+	if (m_lineType == PS_DASHDOT)
+	{
+		pCmdUI->SetCheck(true);
+	}
+	else
+	{
+		pCmdUI->SetCheck(false);
+	}
+	// TODO: 在此添加命令更新用户界面处理程序代码
+}
+
+
+void CPainterView::OnLinetypeDashdotdot()
+{
+	m_lineType = PS_DASHDOTDOT;
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void CPainterView::OnUpdateLinetypeDashdotdot(CCmdUI* pCmdUI)
+{
+	if (m_lineType == PS_DASHDOTDOT)
+	{
+		pCmdUI->SetCheck(true);
+	}
+	else
+	{
+		pCmdUI->SetCheck(false);
+	}
+	// TODO: 在此添加命令更新用户界面处理程序代码
+}
+
+
+void CPainterView::OnUpdateLinetypeInsideframe(CCmdUI* pCmdUI)
+{
+	if (m_lineType == PS_INSIDEFRAME)
+	{
+		pCmdUI->SetCheck(true);
+	}
+	else
+	{
+		pCmdUI->SetCheck(false);
+	}
+	// TODO: 在此添加命令更新用户界面处理程序代码
+}
+
+
+void CPainterView::OnLinetypeInsideframe()
+{
+	m_lineType = PS_INSIDEFRAME;
+	// TODO: 在此添加命令处理程序代码
 }

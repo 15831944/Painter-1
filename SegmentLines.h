@@ -13,7 +13,7 @@ public:
 	
 
 	CSegmentLines();
-	CSegmentLines(COLORREF p_borderColor, COLORREF p_fillColor, CPoint p_startPoint, CPoint p_endPoint);
+	CSegmentLines(int p_lineType,COLORREF p_borderColor, COLORREF p_fillColor, CPoint p_startPoint, CPoint p_endPoint);
 	void draw(CDC* pDC);
 	void AddNode(CPoint TempNode) ;
 	virtual int Length();

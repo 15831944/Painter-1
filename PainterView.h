@@ -15,6 +15,7 @@ class CPainterView : public CView
 
 protected://画板相关
 	//菜单选项
+	int m_lineType;
 	COLORREF m_borderColor;//边框颜色
 	COLORREF m_fillColor;//填充颜色
 	enum shapeType{UNSURE,LINE,RECTANGLE,ELLIPSE,CIRCLE,TRIANGLE, POLYGON, SEGMENTLINES};//形状类型
@@ -107,6 +108,18 @@ public:
 	afx_msg void OnUpdateShapeMove(CCmdUI* pCmdUI);
 	afx_msg void OnUpdateShapeRevolve(CCmdUI* pCmdUI);
 	afx_msg void OnUpdateShapeDraw(CCmdUI* pCmdUI);
+	afx_msg void OnLinetypeSolid();
+	afx_msg void OnUpdateLinetypeSolid(CCmdUI* pCmdUI);
+	afx_msg void OnLinetypeDash();
+	afx_msg void OnUpdateLinetypeDash(CCmdUI* pCmdUI);
+	afx_msg void OnLinetypeDot();
+	afx_msg void OnUpdateLinetypeDot(CCmdUI* pCmdUI);
+	afx_msg void OnLinetypeDashdot();
+	afx_msg void OnUpdateLinetypeDashdot(CCmdUI* pCmdUI);
+	afx_msg void OnLinetypeDashdotdot();
+	afx_msg void OnUpdateLinetypeDashdotdot(CCmdUI* pCmdUI);
+	afx_msg void OnUpdateLinetypeInsideframe(CCmdUI* pCmdUI);
+	afx_msg void OnLinetypeInsideframe();
 };
 
 #ifndef _DEBUG  // debug version in PainterView.cpp

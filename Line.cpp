@@ -23,11 +23,12 @@ CLine::CLine()
 {
 	setShapeType(LINE);
 }
-CLine::CLine(COLORREF p_borderColor,
-	  COLORREF p_fillColor,
-	  CPoint p_startPoint,
-	  CPoint p_endPoint):
-	CShape(p_borderColor,p_fillColor,p_startPoint,p_endPoint)
+CLine::CLine(int p_lineType,
+	COLORREF p_borderColor,
+	COLORREF p_fillColor,
+	CPoint p_startPoint,
+	CPoint p_endPoint) :
+	CShape(p_lineType, p_borderColor, p_fillColor, p_startPoint, p_endPoint)
 {
 	ShapeAmount++;
 	setShapeType(LINE);
@@ -40,7 +41,7 @@ void CLine :: draw(CDC* pDC)
 {
 		//创建临时画笔，用于边框颜色
 		CPen pen;
-		pen.CreatePen(PS_SOLID,1,borderColor);
+		pen.CreatePen(lineType,1,borderColor);
 		pDC->SelectObject(&pen);//把画笔选入设备
 		//创建临时画刷，用于填充颜色
 		CBrush brush;

@@ -163,6 +163,7 @@
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="Painter.h" />
     <ClInclude Include="PainterDoc.h" />
+    <ClInclude Include="PainterView.h" />
     <ClInclude Include="Polygon.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Resource.h" />
@@ -180,7 +181,7 @@
     <CustomBuild Include="res\Painter.rc2" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
+    <None Include="ReadMe.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -3,5 +3,5 @@
 
 
 int CLineShape::PythagorenTheorem(CPoint point_1,CPoint point_2) {
-	return sqrt((startPoint.x - endPoint.x) * (startPoint.x - endPoint.x) + (startPoint.y - endPoint.y) * (startPoint.y - endPoint.y));
+	return sqrt((point_2.x - point_2.x) * (point_1.x - point_2.x) + (point_1.y - point_2.y) * (point_1.y - point_2.y));
 }

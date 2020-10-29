@@ -29,6 +29,18 @@
 #define ID_SHAPE_REVOLVE                32796
 #define ID_                             32797
 #define ID_INQUIRE_NUM                  32798
+#define ID_Menu                         32799
+#define ID_SHAPETYPE_SOLID              32800
+#define ID_SHAPETYPE_DASH               32801
+#define ID_SHAPETYPE_DOT                32802
+#define ID_SHAPETYPE_DASHDOT            32803
+#define ID_SHAPETYPE_DASHDOTDOT         32804
+#define ID_LINETYPE_SOLID               32805
+#define ID_LINETYPE_DASH                32806
+#define ID_LINETYPE_DOT                 32807
+#define ID_LINETYPE_DASHDOT             32808
+#define ID_LINETYPE_DASHDOTDOT          32809
+#define ID_LINETYPE_INSIDEFRAME         32810
 
 // Next default values for new objects
 // 
@@ -36,7 +48,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        132
-#define _APS_NEXT_COMMAND_VALUE         32799
+#define _APS_NEXT_COMMAND_VALUE         32811
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

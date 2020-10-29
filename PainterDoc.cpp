@@ -150,8 +150,9 @@ void CPainterDoc::OnFileSave()
 		return;//如果打开失败就返回
 	for(size_t i=0;i<size();i++)
 	{
-		buffer.Format("%d %d %d %d %d %d %d",
+		buffer.Format("%d %d %d %d %d %d %d %d",
 				shapes[i]->getShapeType(),
+				shapes[i]->getLineType(),
 				shapes[i]->getBorderColor(),
 				shapes[i]->getFillColor(),
 				shapes[i]->getStartPoint().x,
@@ -191,7 +192,7 @@ void CPainterDoc::OnFileOpen()
 	//读取文件
 	using namespace std;
 	ifstream fin;
-
+	int lineType;
 	COLORREF borderColor;//边框颜色
 	COLORREF fillColor;//填充颜色
 	CPoint startPoint;//绘制起点
@@ -207,6 +208,7 @@ void CPainterDoc::OnFileOpen()
 	while(!fin.eof())
 	{
 		fin>>type
+			>>lineType
 			>>borderColor
 			>>fillColor
 			>>startPoint.x
@@ -216,21 +218,21 @@ void CPainterDoc::OnFileOpen()
 		switch(type)
 		{
 		case LINE://直线
-			newShape=new CLine(borderColor,fillColor,startPoint,endPoint);
+			newShape=new CLine(lineType,borderColor,fillColor,startPoint,endPoint);
 			
 			break;
 		case RECTANGLE://矩形
-			newShape=new CRectangle(borderColor,fillColor,startPoint,endPoint);
+			newShape=new CRectangle(lineType, borderColor, fillColor, startPoint, endPoint);
 			
 			break;
 		case ELLIPSE:
-			newShape=new CEllipse(borderColor,fillColor,startPoint,endPoint);
+			newShape=new CEllipse(lineType, borderColor, fillColor, startPoint, endPoint);
 			break;
 		case TRIANGLE://直线
-			newShape = new CLine(borderColor, fillColor, startPoint, endPoint); 
+			newShape = new CLine(lineType, borderColor, fillColor, startPoint, endPoint);
 			break;
 		case CIRCLE://直线
-			newShape = new CLine(borderColor, fillColor, startPoint, endPoint);
+			newShape = new CLine(lineType, borderColor, fillColor, startPoint, endPoint);
 			break;
 
 			break;

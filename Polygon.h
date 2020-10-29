@@ -10,7 +10,7 @@ public:
 
 
 	CPolygon();
-	CPolygon(COLORREF p_borderColor, COLORREF p_fillColor, CPoint p_startPoint, CPoint p_endPoint);
+	CPolygon(int p_lineType,COLORREF p_borderColor, COLORREF p_fillColor, CPoint p_startPoint, CPoint p_endPoint);
 	virtual int Length();
 	virtual int Square();
 	void draw(CDC* pDC);

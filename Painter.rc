@@ -157,6 +157,14 @@ BEGIN
         MENUITEM "三角形",                         ID_SHAPE_TRIANGLE
         MENUITEM "n边形",                         ID_SHAPE_POLYGON
     END
+    POPUP "线型"
+    BEGIN
+        MENUITEM "实线",                          ID_LINETYPE_SOLID
+        MENUITEM "虚线",                          ID_LINETYPE_DASH
+        MENUITEM "点线",                          ID_LINETYPE_DOT
+        MENUITEM "点画线",                         ID_LINETYPE_DASHDOT
+        MENUITEM "双点画线",                        ID_LINETYPE_DASHDOTDOT
+    END
     POPUP "边框颜色"
     BEGIN
         MENUITEM "黑",                           ID_COLOR_BLACK
@@ -417,6 +425,20 @@ BEGIN
     ID_SHAPE_MOVE           "移动"
     ID_SHAPE_REVOLVE        "旋转"
     ID_INQUIRE_NUM          "查看数量"
+END
+
+STRINGTABLE
+BEGIN
+    ID_SHAPETYPE_SOLID      "实线"
+    ID_SHAPETYPE_DASH       "虚线"
+    ID_SHAPETYPE_DOT        "点线"
+    ID_SHAPETYPE_DASHDOT    "点画线"
+    ID_LINETYPE_SOLID       "实线"
+    ID_LINETYPE_DASH        "虚线"
+    ID_LINETYPE_DOT         "点线"
+    ID_LINETYPE_DASHDOT     "点画线"
+    ID_LINETYPE_DASHDOTDOT  "双点画线"
+    ID_LINETYPE_INSIDEFRAME "内框线"
 END
 
 #endif    // 中文(简体，中国) resources

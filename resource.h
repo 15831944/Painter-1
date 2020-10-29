@@ -41,6 +41,7 @@
 #define ID_LINETYPE_DASHDOT             32808
 #define ID_LINETYPE_DASHDOTDOT          32809
 #define ID_LINETYPE_INSIDEFRAME         32810
+#define ID_SHAPE_ALTER                  32811
 
 // Next default values for new objects
 // 
@@ -48,7 +49,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        132
-#define _APS_NEXT_COMMAND_VALUE         32811
+#define _APS_NEXT_COMMAND_VALUE         32812
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

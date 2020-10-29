@@ -91,6 +91,7 @@ BEGIN_MESSAGE_MAP(CPainterView, CView)
 	ON_UPDATE_COMMAND_UI(ID_LINETYPE_DASHDOTDOT, &CPainterView::OnUpdateLinetypeDashdotdot)
 	ON_UPDATE_COMMAND_UI(ID_LINETYPE_INSIDEFRAME, &CPainterView::OnUpdateLinetypeInsideframe)
 	ON_COMMAND(ID_LINETYPE_INSIDEFRAME, &CPainterView::OnLinetypeInsideframe)
+	ON_COMMAND(ID_SHAPE_ALTER, &CPainterView::OnShapeAlter)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -236,13 +237,24 @@ void CPainterView::OnLButtonDown(UINT nFlags, CPoint point)
 
 		pDoc->push_back(newShape);
 	}
-	if (m_shapeState == 2) {
+	else if (m_shapeState == 2) {
 		m_drawState = 1;
 		LastMousePoint = point;
 	}
+	else if (m_shapeState == 4) {
+		CPainterDoc* pDoc = GetDocument();
+		ASSERT_VALID(pDoc);
+		pDoc->setLineType(m_lineType);
+		pDoc->setBorderColor(m_borderColor);
+		pDoc->setFillColor(m_fillColor);
+		Invalidate();
+		
+
+		//pDoc.bac;
+	}
 }
 
-void CPainterView::OnLButtonUp(UINT nFlags, CPoint point) 
+void CPainterView::OnLButtonUp(UINT nFlags, CPoint point)										//这段应该能够合并状态，不用不同状态大段复制
 {
 	// TODO: Add your message handler code here and/or call default
 	
@@ -286,8 +298,7 @@ void CPainterView::OnLButtonUp(UINT nFlags, CPoint point)
 		}
 		//Invalidate();
 	}
-	
-	if (m_shapeState == 2) {
+	else if (m_shapeState == 2) {
 
 		m_drawState = 0;//结束绘图
 		//获取文档指针以存入数据
@@ -324,6 +335,38 @@ void CPainterView::OnLButtonUp(UINT nFlags, CPoint point)
 			(&dc)->TextOut(TempPoint.x - 20, TempPoint.y, strl, strlen(strl));
 		}
 	}
+	else if (m_shapeState == 4) {
+		CPainterDoc* pDoc = GetDocument();
+		ASSERT_VALID(pDoc);
+		CPoint TempPoint;//该变量用于计算图像中心
+		CPoint SumPoint;
+
+		SumPoint.x = pDoc->shapes.back()->getStartPoint().x + pDoc->shapes.back()->getEndPoint().x;				//***********************************************/
+		SumPoint.y = pDoc->shapes.back()->getStartPoint().y + pDoc->shapes.back()->getEndPoint().y;				//
+		for (int i = 0; i < (pDoc->shapes.back()->LineNode.size()); i++) {										//			
+			SumPoint.x = SumPoint.x + pDoc->shapes.back()->LineNode[i].x;										//			
+			SumPoint.y = SumPoint.y + pDoc->shapes.back()->LineNode[i].y;										//
+																												//
+		}																										//
+		TempPoint.x = SumPoint.x / (2 + pDoc->shapes.back()->LineNode.size());									//			此段为计算图像中心点
+		TempPoint.y = SumPoint.y / (2 + pDoc->shapes.back()->LineNode.size());									//			并在中间标出图像信息
+		CClientDC dc(this);
+
+		if ((m_shapeType == LINE) || (m_shapeType == SEGMENTLINES)) {
+			char str[16]; char strl[16];
+			sprintf(str, "长度为%d", abs(pDoc->shapes.back()->Length()));
+			(&dc)->TextOut(TempPoint.x - 20, TempPoint.y - 20, str, strlen(str));
+			sprintf(strl, "顶点数为%d", abs(pDoc->shapes.back()->Node()));											//
+			(&dc)->TextOut(TempPoint.x - 20, TempPoint.y, strl, strlen(strl));
+		}
+		else {
+			char str[16]; char strl[16];
+			sprintf(str, "面积为%d", abs(pDoc->shapes.back()->Square()));
+			(&dc)->TextOut(TempPoint.x - 20, TempPoint.y - 20, str, strlen(str));
+			sprintf(strl, "周长为%d", abs(pDoc->shapes.back()->Length()));											//
+			(&dc)->TextOut(TempPoint.x - 20, TempPoint.y, strl, strlen(strl));
+		}
+	}
 }
 
 void CPainterView::OnMouseMove(UINT nFlags, CPoint point) 
@@ -353,7 +396,7 @@ void CPainterView::OnMouseMove(UINT nFlags, CPoint point)
 
 		}
 	}
-	if (m_shapeState == 2) {
+	else if (m_shapeState == 2) {
 		if (m_drawState == 1)//只在绘画过程刷新，以免闪烁
 		{
 			CPoint TempPoint;
@@ -377,6 +420,7 @@ void CPainterView::OnMouseMove(UINT nFlags, CPoint point)
 
 		}
 	}
+
 }
 
 void CPainterView::OnShapeRectangle() 
@@ -722,10 +766,9 @@ void CPainterView::OnUpdateShapePolygon(CCmdUI* pCmdUI)
 
 void CPainterView::OnTest()
 {
-	CClientDC dc(this);
-	(&dc) ->TextOut( 50, 50, "111", 3);
-	(&dc)->SetTextColor(RGB(255, 255, 255));
-	(&dc)->TextOut(50, 50, "111", 3);
+	CPainterDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+
 	/*CButton* btn = new CButton();
 	btn->Create(_T("动态按钮"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, CRect(10, 10, 150, 150), this, IDC_MYBUTTON);*/
 	//CShape* newShape = new CEllipse(m_borderColor, m_fillColor, (10,10), (10000,10000))
@@ -933,5 +976,13 @@ void CPainterView::OnUpdateLinetypeInsideframe(CCmdUI* pCmdUI)
 void CPainterView::OnLinetypeInsideframe()
 {
 	m_lineType = PS_INSIDEFRAME;
+	// TODO: 在此添加命令处理程序代码
+}
+
+
+void CPainterView::OnShapeAlter()
+{
+	m_shapeState = 4;
+
 	// TODO: 在此添加命令处理程序代码
 }

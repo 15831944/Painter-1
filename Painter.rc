@@ -146,6 +146,7 @@ BEGIN
         MENUITEM "画图",                          ID_SHAPE_DRAW
         MENUITEM "移动",                          ID_SHAPE_MOVE
         MENUITEM "旋转",                          ID_SHAPE_REVOLVE
+        MENUITEM "修改",                          ID_SHAPE_ALTER
     END
     POPUP "形状"
     BEGIN
@@ -423,7 +424,7 @@ BEGIN
     ID_TEST                 "测试"
     ID_SHAPE_DRAW           "画图"
     ID_SHAPE_MOVE           "移动"
-    ID_SHAPE_REVOLVE        "旋转"
+    ID_SHAPE_REVOLVE        "修改"
     ID_INQUIRE_NUM          "查看数量"
 END
 
@@ -439,6 +440,7 @@ BEGIN
     ID_LINETYPE_DASHDOT     "点画线"
     ID_LINETYPE_DASHDOTDOT  "双点画线"
     ID_LINETYPE_INSIDEFRAME "内框线"
+    ID_SHAPE_ALTER          "修改"
 END
 
 #endif    // 中文(简体，中国) resources

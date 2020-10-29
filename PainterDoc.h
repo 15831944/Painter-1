@@ -21,7 +21,9 @@ public:
 	//使用基类指针来实现动态绑定
 public:
 	//设置末尾形状的终点。起点在加入形状时已经设置
-	void ShapeInfShow();//用于显示面积信息
+	void setLineType(int type) { shapes.back()->setLineType(type); }
+	void setBorderColor(COLORREF color) { shapes.back()->setBorderColor(color); }//设置边框颜色
+	void setFillColor(COLORREF color) { shapes.back()->setFillColor(color); }//设置填充颜色
 	void setEndPoint(CPoint point){shapes.back()->setEndPoint(point);}
 	void setLinePoint(CPoint point) { shapes.back()->setLinePoint(point); }
 	//新增指向形状的指针

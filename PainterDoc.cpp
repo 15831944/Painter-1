@@ -96,10 +96,6 @@ BOOL CPainterDoc::OnNewDocument()
 /////////////////////////////////////////////////////////////////////////////
 // CPainterDoc serialization
 
-void CPainterDoc::ShapeInfShow() {
-
-
-}
 
 void CPainterDoc::Serialize(CArchive& ar)
 {

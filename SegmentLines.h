@@ -18,6 +18,7 @@ public:
 	void AddNode(CPoint TempNode) ;
 	virtual int Length();
 	virtual int Node();
+	virtual void Revolve();
 	virtual ~CSegmentLines();
 };
 

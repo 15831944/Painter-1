@@ -92,6 +92,7 @@ BEGIN_MESSAGE_MAP(CPainterView, CView)
 	ON_UPDATE_COMMAND_UI(ID_LINETYPE_INSIDEFRAME, &CPainterView::OnUpdateLinetypeInsideframe)
 	ON_COMMAND(ID_LINETYPE_INSIDEFRAME, &CPainterView::OnLinetypeInsideframe)
 	ON_COMMAND(ID_SHAPE_ALTER, &CPainterView::OnShapeAlter)
+	ON_UPDATE_COMMAND_UI(ID_SHAPE_ALTER, &CPainterView::OnUpdateShapeAlter)
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -252,6 +253,15 @@ void CPainterView::OnLButtonDown(UINT nFlags, CPoint point)
 
 		//pDoc.bac;
 	}
+	else if (m_shapeState == 3) {
+		CPainterDoc* pDoc = GetDocument();
+		ASSERT_VALID(pDoc);
+		pDoc->shapes.back()->Revolve();
+		Invalidate();
+
+
+		//pDoc.bac;
+	}
 }
 
 void CPainterView::OnLButtonUp(UINT nFlags, CPoint point)										//Õâ¶ÎÓ¦¸ÃÄÜ¹»ºÏ²¢×´Ì¬£¬²»ÓÃ²»Í¬×´Ì¬´ó¶Î¸´ÖÆ
@@ -366,6 +376,40 @@ void CPainterView::OnLButtonUp(UINT nFlags, CPoint point)										//Õâ¶ÎÓ¦¸ÃÄÜ¹
 			sprintf(strl, "ÖÜ³¤Îª%d", abs(pDoc->shapes.back()->Length()));											//
 			(&dc)->TextOut(TempPoint.x - 20, TempPoint.y, strl, strlen(strl));
 		}
+
+	}
+	else if (m_shapeState == 3) {
+		CPainterDoc* pDoc = GetDocument();
+		ASSERT_VALID(pDoc);
+		CPoint TempPoint;//¸Ã±äÁ¿ÓÃÓÚ¼ÆËãÍ¼ÏñÖĞĞÄ
+		CPoint SumPoint;
+
+		SumPoint.x = pDoc->shapes.back()->getStartPoint().x + pDoc->shapes.back()->getEndPoint().x;				//***********************************************/
+		SumPoint.y = pDoc->shapes.back()->getStartPoint().y + pDoc->shapes.back()->getEndPoint().y;				//
+		for (int i = 0; i < (pDoc->shapes.back()->LineNode.size()); i++) {										//			
+			SumPoint.x = SumPoint.x + pDoc->shapes.back()->LineNode[i].x;										//			
+			SumPoint.y = SumPoint.y + pDoc->shapes.back()->LineNode[i].y;										//
+																												//
+		}																										//
+		TempPoint.x = SumPoint.x / (2 + pDoc->shapes.back()->LineNode.size());									//			´Ë¶ÎÎª¼ÆËãÍ¼ÏñÖĞĞÄµã
+		TempPoint.y = SumPoint.y / (2 + pDoc->shapes.back()->LineNode.size());									//			²¢ÔÚÖĞ¼ä±ê³öÍ¼ÏñĞÅÏ¢
+		CClientDC dc(this);
+
+		if ((m_shapeType == LINE) || (m_shapeType == SEGMENTLINES)) {
+			char str[16]; char strl[16];
+			sprintf(str, "³¤¶ÈÎª%d", abs(pDoc->shapes.back()->Length()));
+			(&dc)->TextOut(TempPoint.x - 20, TempPoint.y - 20, str, strlen(str));
+			sprintf(strl, "¶¥µãÊıÎª%d", abs(pDoc->shapes.back()->Node()));											//
+			(&dc)->TextOut(TempPoint.x - 20, TempPoint.y, strl, strlen(strl));
+		}
+		else {
+			char str[16]; char strl[16];
+			sprintf(str, "Ãæ»ıÎª%d", abs(pDoc->shapes.back()->Square()));
+			(&dc)->TextOut(TempPoint.x - 20, TempPoint.y - 20, str, strlen(str));
+			sprintf(strl, "ÖÜ³¤Îª%d", abs(pDoc->shapes.back()->Length()));											//
+			(&dc)->TextOut(TempPoint.x - 20, TempPoint.y, strl, strlen(strl));
+		}
+
 	}
 }
 
@@ -985,4 +1029,18 @@ void CPainterView::OnShapeAlter()
 	m_shapeState = 4;
 
 	// TODO: ÔÚ´ËÌí¼ÓÃüÁî´¦Àí³ÌĞò´úÂë
+}
+
+
+void CPainterView::OnUpdateShapeAlter(CCmdUI* pCmdUI)
+{
+	if (m_shapeState == 4)
+	{
+		pCmdUI->SetCheck(true);
+	}
+	else
+	{
+		pCmdUI->SetCheck(false);
+	}
+	// TODO: ÔÚ´ËÌí¼ÓÃüÁî¸üĞÂÓÃ»§½çÃæ´¦Àí³ÌĞò´úÂë
 }

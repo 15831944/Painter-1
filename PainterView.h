@@ -121,6 +121,7 @@ public:
 	afx_msg void OnUpdateLinetypeInsideframe(CCmdUI* pCmdUI);
 	afx_msg void OnLinetypeInsideframe();
 	afx_msg void OnShapeAlter();
+	afx_msg void OnUpdateShapeAlter(CCmdUI* pCmdUI);
 };
 
 #ifndef _DEBUG  // debug version in PainterView.cpp

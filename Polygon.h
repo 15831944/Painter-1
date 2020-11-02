@@ -13,6 +13,7 @@ public:
 	CPolygon(int p_lineType,COLORREF p_borderColor, COLORREF p_fillColor, CPoint p_startPoint, CPoint p_endPoint);
 	virtual int Length();
 	virtual int Square();
+	virtual void Revolve();
 	void draw(CDC* pDC);
 	void AddNode(CPoint TempNode);
 	virtual ~CPolygon();

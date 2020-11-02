@@ -59,15 +59,20 @@ int CTriangle::Square()
 
 int CTriangle::Length()
 {
-	int h = endPoint.y - startPoint.y;
-	int d = (endPoint.x - startPoint.x) / 2;
+	int h = abs(endPoint.y - startPoint.y);
+	int d = abs((endPoint.x - startPoint.x) / 2);
 	int l = sqrt(h * h + d * d);
 	return (l+d) / 5;
 
 
 }
 
-
+void CTriangle::Revolve() {
+	CPoint tempPoint;
+	tempPoint = startPoint;
+	startPoint = endPoint;
+	endPoint = tempPoint;
+}
 
 
 

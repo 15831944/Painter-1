@@ -20,6 +20,7 @@ public:
 	CLine();
 	CLine(int p_lineType,COLORREF p_borderColor,COLORREF p_fillColor,CPoint p_startPoint,CPoint p_endPoint);
 	void draw(CDC* pDC);
+	virtual void Revolve();
 	virtual int Length();
 	virtual int Node();
 	virtual ~CLine();

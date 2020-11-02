@@ -55,6 +55,13 @@ void CLine :: draw(CDC* pDC)
 		brush.DeleteObject(); 
 
 }
+void CLine::Revolve() {
+	CPoint midPoint;
+	midPoint.x = (startPoint.x + endPoint.x) / 2;
+	midPoint.y = (startPoint.y + endPoint.y) / 2;
+	startPoint = PointRevolve(startPoint, midPoint);
+	endPoint = PointRevolve(endPoint, midPoint);
+}
 
 int CLine::Length()
 {

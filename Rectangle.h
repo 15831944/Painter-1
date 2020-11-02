@@ -21,6 +21,7 @@ public:
 	void draw(CDC* pDC);
 	virtual int Length();
 	virtual int Square();
+	virtual void Revolve();
 	virtual ~CRectangle();
 
 };

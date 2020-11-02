@@ -77,8 +77,13 @@ int CEllipse::Length()
 }
 
 
-
-
+void CEllipse::Revolve() {
+	CPoint midPoint;
+	midPoint.x = (startPoint.x + endPoint.x) / 2;
+	midPoint.y = (startPoint.y + endPoint.y) / 2;
+	startPoint = PointRevolve(startPoint, midPoint);
+	endPoint = PointRevolve(endPoint, midPoint);
+}
 
 CEllipse::~CEllipse()
 {

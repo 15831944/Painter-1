@@ -57,14 +57,21 @@ void CRectangle:: draw(CDC* pDC)
 
 int CRectangle::Square()
 {
-	return   abs((int(startPoint.x) - int(endPoint.x)) * (int(startPoint.y) - int(endPoint.y))) / 100;
+	return   abs((int(startPoint.x) - int(endPoint.x)) *abs( (int(startPoint.y) - int(endPoint.y)))) / 100;
 }
 
 int CRectangle::Length()
 {
 
-	return   abs((int(startPoint.x) - int(endPoint.x)) +(int(startPoint.y) - int(endPoint.y))) / 10*2;
+	return   abs(abs((int(startPoint.x) - int(endPoint.x))) +abs((int(startPoint.y) - int(endPoint.y)))) / 10*2;
 
+}
+void CRectangle::Revolve() {
+	CPoint midPoint;
+	midPoint.x = (startPoint.x + endPoint.x) / 2;
+	midPoint.y = (startPoint.y + endPoint.y) / 2;
+	startPoint = PointRevolve(startPoint, midPoint);
+	endPoint = PointRevolve(endPoint, midPoint);
 }
 
 

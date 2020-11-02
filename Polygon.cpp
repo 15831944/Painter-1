@@ -97,6 +97,24 @@ int CPolygon::Square() {
 	return s;
 }
 
+void CPolygon::Revolve() {
+	CPoint midPoint, sumPoint;
+	sumPoint.x = startPoint.x + endPoint.x;
+	sumPoint.y = startPoint.y + endPoint.y;
+	for (int i = 0; i < (LineNode.size()); i++) {
+		sumPoint.x = sumPoint.x + LineNode[i].x;
+		sumPoint.y = sumPoint.y + LineNode[i].y;
+
+	}
+	midPoint.x = sumPoint.x / (2 + LineNode.size());
+	midPoint.y = sumPoint.y / (2 + LineNode.size());
+	startPoint = PointRevolve(startPoint, midPoint);
+	endPoint = PointRevolve(endPoint, midPoint);
+	for (int i = 0; i < LineNode.size(); i++) {
+		LineNode[i] = PointRevolve(LineNode[i], midPoint);
+	}
+}
+
 
 
 CPolygon::~CPolygon()

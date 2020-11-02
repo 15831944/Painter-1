@@ -13,7 +13,7 @@
 class CShape  
 {
 protected:
-	int lineType;
+	int lineType;//线性
 	COLORREF borderColor;//边框颜色
 	COLORREF fillColor;//填充颜色
 	CPoint startPoint;//绘制起点
@@ -43,6 +43,7 @@ public:
 	void AddNode(CPoint TempNode) {};
 	void Move(CPoint PointDistance);
 	int getLineNode() { return LineNode.size(); }
+	virtual void Revolve() {};
 	virtual int Square() { return 0; };
 	virtual int Length() { return 0; }; 
 	virtual int Node() { return 0; };
